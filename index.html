@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>Volleyball Practice App</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <h1>volleyball practice maker.</h1>
+    <label> 
+        Practice time used <progress id = "time" max = "90" value = "0">0%</progress>
+    </label>
+
+    <input type = "date" id = "practiceDate">
+
+    <div id = "drillLibrary">
+        <h2>
+            Drill Library 
+        </h2>        
+        <ul id = "drillList">
+            <!-- drills should be here-->
+        </ul>
+    </div>
+
+    <div id = "practicePlan">
+        <h2> Practice Plan </h2>
+        <button id = "resetPlan" type = "button">Clear plan</button>
+        <button id = "savePlan" type = "button">Save plan</button>
+
+        <ul id = "planList">
+            <!-- Drills added to plan will appear here -->
+
+        </ul>  
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
