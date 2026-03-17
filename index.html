@@ -26,11 +26,21 @@
         <h2> Practice Plan </h2>
         <button id = "resetPlan" type = "button">Clear plan</button>
         <button id = "savePlan" type = "button">Save plan</button>
-
         <ul id = "planList">
             <!-- Drills added to plan will appear here -->
 
         </ul>  
+    </div>
+    
+    <div id="drillModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal" class="close">&times;</span>
+            <h3>Set Drill Duration</h3>
+            <input type="range" id="durationSlider" min="5" max="60" step="5">
+            <span id="sliderValue"> min</span>
+            <br><br>
+            <button id="confirmAdd">Add Drill</button>
+        </div>
     </div>
     <script src="script.js"></script>
   </body>

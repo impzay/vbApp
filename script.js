@@ -32,7 +32,7 @@ let currentDate = null;
 
 function renderDrill(drill){
     const planItem = document.createElement("li");
-    planItem.textContent = `${drill.name}`;
+    planItem.textContent = `${drill.name} - ${drill.duration} min - ${drill.players} players (minimum) - ${drill.focus} - ${drill.desc}`;
     planList.appendChild(planItem);
     progBar.value = Number(progBar.value) + drill.duration;
 }
@@ -92,6 +92,42 @@ const progBar = document.getElementById("time");
 const planClearBtn = document.getElementById("resetPlan");
 const planSaveBtn = document.getElementById("savePlan");
 
+//drill popup stuff
+const durationSlider = document.getElementById("durationSlider");
+const sliderValue = document.getElementById("sliderValue");
+const drillModal = document.getElementById("drillModal");
+const confirmAdd = document.getElementById("confirmAdd");
+const closeModal = document.getElementById("closeModal");
+
+let selectedDrill = null;
+
+durationSlider.addEventListener("input", () => {
+    sliderValue.textContent = durationSlider.value + " min";
+});
+
+closeModal.addEventListener("click", () => {
+    drillModal.style.display = "none";
+    selectedDrill = null;
+})
+
+confirmAdd.addEventListener("click", () =>{
+    if (!selectedDrill) return;
+    console.log("test")
+    const chosenDuration = Number(durationSlider.value);
+
+    const customDrill = {
+        ...selectedDrill,
+        duration: chosenDuration
+    };
+
+    addDrillToPlan(customDrill);
+    renderDrill(customDrill);
+    
+    drillModal.style.display = "none";
+    selectedDrill = null;
+});
+
+
 planList.addEventListener("dragover", (event) => {
     event.preventDefault();
 })
@@ -148,22 +184,22 @@ drills.forEach((drill,index) => {
    })
 
    li.addEventListener("click", () => {
-    console.log("still running nerd");
-
-    const planItem = document.createElement("li");
-    planItem.textContent = `${drill.name} - ${drill.duration} min - ${drill.players} players (minimum) - ${drill.focus} - ${drill.desc}`;
-    planList.appendChild(planItem);
-    //console.log(drill.duration);
-    progBar.value = progBar.value + drill.duration;
+    selectedDrill = drill;
     addDrillToPlan(drill);
 
-    planItem.addEventListener("click", () => {
-        planItem.remove();
-        progBar.value = progBar.value - drill.duration;
-    });
+    durationSlider.value = drill.duration;
+    sliderValue.textContent = drill.duration + " min";
+    drillModal.style.display = "block";
+    
+    //const planItem = document.createElement("li");
+    //planItem.textContent = `${drill.name} - ${drill.duration} min - ${drill.players} players (minimum) - ${drill.focus} - ${drill.desc}`;
+    //planList.appendChild(planItem);
+   
+    //progBar.value = progBar.value + drill.duration;
     });
 
    drillList.appendChild(li);
 });
+
 
 
