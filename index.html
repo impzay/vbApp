@@ -2,49 +2,57 @@
 <html lang="en-US">
   <head>
     <meta charset="utf-8" />
-    <title>Volleyball Practice App</title>
+    <title>UMW Volleyball Practice Planner</title>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <h1>Practice Planner.</h1>
 
-    <div>
-        <label> 
-            Practice time used <progress id = "time" max = "90" value = "0">0%</progress> <span id = "timeLeft"> min left</span></label>
-        
-        <p>Please set the day you would like to plan. <input type = "date" id = "practiceDate"></p>
-        
-    </div>
+    <header>
+      <div class="header-left">
+        <span class="header-title">UMW Volleyball</span>
+        <span class="header-sub">Practice Planner</span>
+      </div>
+      <div class="header-right">
+        <label for="practiceDate">Date</label>
+        <input type="date" id="practiceDate">
+      </div>
+    </header>
 
-    <div id = "drillLibrary">
-        <h2>
-            Drill Library 
-        </h2>        
-        <ul id = "drillList">
-            <!-- drills should be here-->
-        </ul>
-    </div>
+    <div class="layout">
 
-    <div id = "practicePlan">
-        <h2> Practice Plan </h2>
-        <button id = "resetPlan" type = "button">Clear plan</button>
-        <button id = "savePlan" type = "button">Save plan</button>
-        <ul id = "planList">
-            <!-- Drills added to plan will appear here -->
+      <aside id="drillLibrary">
+        <div class="libraryLabel">Drill Library</div>
+        <ul id="drillList"></ul>
+      </aside>
 
-        </ul>  
-    </div>
-    
-    <div id="drillModal" class="modal">
-        <div class="modal-content">
-            <span id="closeModal" class="close">&times;</span>
-            <h3>Set Drill Duration</h3>
-            <input type="range" id="durationSlider" min="5" max="90" step="5">
-            <span id="sliderValue"> min</span>
-            <br><br>
-            <button id="confirmAdd">Add Drill</button>
+      <section id="practicePlan">
+        <div class="planHeader">
+          <h2>Practice Plan</h2>
+          <div class="progWrap">
+            <progress id="time" max="90" value="0"></progress>
+            <span id="timeLeft">90 min left</span>
+          </div>
+          <div class="planButtons">
+            <button id="resetPlan" type="button">Clear</button>
+            <button id="savePlan" type="button">Save</button>
+          </div>
         </div>
+        <ul id="planList"></ul>
+      </section>
+
     </div>
+
+    <div id="drillModal" class="modal">
+      <div class="modal-content">
+        <span id="closeModal" class="close">&times;</span>
+        <h3>Set Drill Duration</h3>
+        <input type="range" id="durationSlider" min="5" max="90" step="5">
+        <span id="sliderValue">min</span>
+        <br><br>
+        <button id="confirmAdd">Add Drill</button>
+      </div>
+    </div>
+
     <script src="script.js"></script>
   </body>
 </html>

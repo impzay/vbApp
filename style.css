@@ -10,38 +10,212 @@
     --white:      #f5f7fa;
 }
 
-#drillList li {
-    display: inline-block;
-    vertical-align: top;
-    padding: 10px;
-    border: 2px solid var(--blue);
-    border-radius: 20px;
-    width: 120px;
-    height: 120px;
-    margin: 5px;
+* {
     box-sizing: border-box;
-    background: var(--navy-light);
-    color: var(--white);
+    margin: 0;
+    padding: 0;
+}
 
+body {
+    background: var(--gray-light);
+    font-family: Georgia, serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── Header ── */
+header {
+    background: var(--navy-dark);
+    border-bottom: 3px solid var(--white);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-left {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.header-title {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.header-sub {
+    color: var(--gray);
+    font-size: 13px;
+    font-family: sans-serif;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header-right label {
+    color: var(--gray);
+    font-size: 12px;
+    font-family: sans-serif;
+}
+
+.header-right input[type="date"] {
+    background: var(--navy-light);
+    border: 1px solid var(--blue);
+    border-radius: 6px;
+    color: var(--white);
+    font-size: 13px;
+    padding: 5px 10px;
+    font-family: sans-serif;
+}
+
+/* ── Two-column layout ── */
+.layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* ── Sidebar ── */
+#drillLibrary {
+    background: var(--navy);
+    border-right: 1px solid var(--navy-light);
+    padding: 20px 14px;
+    overflow-y: auto;
+}
+
+.libraryLabel {
+    color: var(--gray);
+    font-size: 10px;
+    font-family: sans-serif;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+#drillList {
+    list-style: none;
+    padding: 0;
+}
+
+#drillList li {
+    background: var(--navy-light);
+    border: 1px solid #2e4370;
+    border-radius: 10px;
+    color: var(--white);
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-family: sans-serif;
     cursor: grab;
-    transition: transform 0.15s, box-shadow 0.15s;
+    transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
 }
 
 #drillList li:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
     border-color: var(--white);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 #drillList li:active {
     cursor: grabbing;
-    transform: scale(0.90);
+    transform: scale(0.97);
 }
 
+/* ── Practice plan (right side) ── */
+#practicePlan {
+    background: var(--white);
+    display: flex;
+    flex-direction: column;
+    padding: 20px 24px;
+    overflow-y: auto;
+}
+
+.planHeader {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--gray-mid);
+    flex-wrap: wrap;
+}
+
+.planHeader h2 {
+    font-size: 16px;
+    color: var(--navy);
+    font-family: sans-serif;
+    white-space: nowrap;
+}
+
+.progWrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+progress {
+    flex: 1;
+    height: 8px;
+    border-radius: 4px;
+    accent-color: var(--blue);
+}
+
+#timeLeft {
+    font-size: 12px;
+    color: var(--gray);
+    font-family: sans-serif;
+    white-space: nowrap;
+}
+
+.planButtons {
+    display: flex;
+    gap: 8px;
+}
+
+button {
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    padding: 7px 14px;
+    font-size: 12px;
+    font-family: sans-serif;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+button:hover {
+    background: var(--navy-light);
+}
+
+/* ── Drop zone ── */
 #planList {
-    min-height: 200px;
+    list-style: none;
+    padding: 16px;
+    min-height: 300px;
     border: 2px dashed var(--gray-mid);
-    padding: 20px;
+    border-radius: 10px;
+    flex: 1;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+#planList:empty::before {
+    content: "Drag drills here or click to add";
+    display: block;
+    text-align: center;
+    color: var(--gray);
+    font-size: 13px;
+    font-family: sans-serif;
+    padding-top: 24px;
 }
 
 #planList.drag-over {
@@ -49,6 +223,19 @@
     background-color: rgba(46, 95, 163, 0.05);
 }
 
+#planList li {
+    background: #fff;
+    border: 1px solid var(--gray-mid);
+    border-left: 4px solid var(--blue);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-family: sans-serif;
+    color: #222;
+}
+
+/* ── Modal ── */
 .modal {
     display: none;
     position: fixed;
@@ -62,13 +249,19 @@
 }
 
 .modal-content {
-    background-color: var(--white);
+    background: var(--white);
     border-top: 4px solid var(--navy);
     margin: 15% auto;
-    padding: 20px;
+    padding: 24px;
     width: 300px;
     border-radius: 8px;
     text-align: center;
+    font-family: sans-serif;
+}
+
+.modal-content h3 {
+    color: var(--navy);
+    margin-bottom: 16px;
 }
 
 .close {
