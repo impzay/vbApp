@@ -1,18 +1,52 @@
-#drillList li{
+:root {
+    --navy:       #1a2a4a;
+    --navy-light: #243659;
+    --navy-dark:  #111e35;
+    --blue:       #2e5fa3;
+    --blue-light: #4a7fc1;
+    --gray:       #8a939e;
+    --gray-light: #e8eaed;
+    --gray-mid:   #c4c9d0;
+    --white:      #f5f7fa;
+}
+
+#drillList li {
     display: inline-block;
     vertical-align: top;
     padding: 10px;
-    border: 2px solid black;
+    border: 2px solid var(--blue);
     border-radius: 20px;
     width: 120px;
     height: 120px;
     margin: 5px;
     box-sizing: border-box;
+    background: var(--navy-light);
+    color: var(--white);
+
+    cursor: grab;
+    transition: transform 0.15s, box-shadow 0.15s;
 }
+
+#drillList li:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-color: var(--white);
+}
+
+#drillList li:active {
+    cursor: grabbing;
+    transform: scale(0.90);
+}
+
 #planList {
     min-height: 200px;
-    border: 2px dashed gray;
+    border: 2px dashed var(--gray-mid);
     padding: 20px;
+}
+
+#planList.drag-over {
+    border-color: var(--blue-light);
+    background-color: rgba(46, 95, 163, 0.05);
 }
 
 .modal {
@@ -20,7 +54,7 @@
     position: fixed;
     z-index: 1000;
     left: 0;
-    top: 0; 
+    top: 0;
     width: 100%;
     height: 100%;
     overflow: auto;
@@ -28,7 +62,8 @@
 }
 
 .modal-content {
-    background-color: #fff;
+    background-color: var(--white);
+    border-top: 4px solid var(--navy);
     margin: 15% auto;
     padding: 20px;
     width: 300px;
@@ -40,4 +75,9 @@
     float: right;
     font-size: 24px;
     cursor: pointer;
+    color: var(--gray);
+}
+
+.close:hover {
+    color: var(--navy);
 }

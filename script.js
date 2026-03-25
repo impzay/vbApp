@@ -1,5 +1,26 @@
-//const drillLibDiv = document.getElementById("drillLibrary");
-//drillLibDiv.style.backgroundColor = "#54863db9";
+//list variables
+const drillList = document.getElementById("drillList");
+const planList = document.getElementById("planList");
+
+//progress bar
+const progBar = document.getElementById("time");
+const timeLeftTxt = document.getElementById("timeLeft");
+
+//plan buttons
+const planClearBtn = document.getElementById("resetPlan");
+const planSaveBtn = document.getElementById("savePlan");
+
+//drill popup stuff
+const durationSlider = document.getElementById("durationSlider");
+const sliderValue = document.getElementById("sliderValue");
+const drillModal = document.getElementById("drillModal");
+const confirmAdd = document.getElementById("confirmAdd");
+const closeModal = document.getElementById("closeModal");
+
+
+let selectedDrill = null;
+
+
 
 class Drill {
     constructor(name, duration, players, focus, description){
@@ -60,11 +81,15 @@ function addDrillToPlan(drill){
 
 //one function that handles all drill selection
 function handleDrillSelection(drill){
+    if(progBar.value >= progBar.max){
+        alert("Practice is full.");
+        return;
+    }
     selectedDrill = drill;
     //addDrillToPlan(drill);
 
     durationSlider.value = drill.duration;
-    updTimeLeft(drill.duration);
+    updTimeLeft(progBar.value);
     drillModal.style.display = "block";
 }
 
@@ -97,28 +122,6 @@ datePicker.addEventListener("change", () => {
     console.log("loading");
 })
 
-//list variables
-const drillList = document.getElementById("drillList");
-const planList = document.getElementById("planList");
-
-//progress bar
-const progBar = document.getElementById("time");
-const timeLeftTxt = document.getElementById("timeLeft");
-
-//plan buttons
-const planClearBtn = document.getElementById("resetPlan");
-const planSaveBtn = document.getElementById("savePlan");
-
-//drill popup stuff
-const durationSlider = document.getElementById("durationSlider");
-const sliderValue = document.getElementById("sliderValue");
-const drillModal = document.getElementById("drillModal");
-const confirmAdd = document.getElementById("confirmAdd");
-const closeModal = document.getElementById("closeModal");
-
-
-let selectedDrill = null;
-
 durationSlider.addEventListener("input", () => {
     sliderValue.textContent = durationSlider.value + " min";
 });
@@ -139,8 +142,7 @@ confirmAdd.addEventListener("click", () =>{
     };
 
     addDrillToPlan(customDrill);
-    //renderDrill(customDrill);
-    
+
     drillModal.style.display = "none";
     selectedDrill = null;
 });
@@ -157,20 +159,9 @@ planList.addEventListener("drop", (event) => {
         alert("Practice is full.");
         return;
     }
-    
+
     const index = event.dataTransfer.getData("drillIndex");
-    const drill = drills[index];
-  /*  
-
-    const planItem = document.createElement("li");
-    planItem.textContent = `${drill.name} - ${drill.duration} min - ${drill.players} players (minimum) - ${drill.focus} - ${drill.desc}`;
-    planList.appendChild(planItem);
-    progBar.value = progBar.value + drill.duration;
-
-    addDrillToPlan(drill);
-*/
-
-    selectedDrill = drill;
+    const drill = drills[index];     
     handleDrillSelection(drill);
 })
 
@@ -194,11 +185,6 @@ planSaveBtn.addEventListener("click", () => {
 
 drills.forEach((drill,index) => {
     //Instantiate drill library
-    if(progBar.value >= progBar.max){
-        alert("Practice is full.");
-        return;
-    }
-
    const li = document.createElement("li");
    li.textContent = `${drill.name} - ${drill.duration} min`;
    li.draggable = true; 
@@ -217,10 +203,7 @@ drills.forEach((drill,index) => {
 });
 
 function updTimeLeft(time){
-    let maxTime = 90;
-    let timeLeft = maxTime - time;
-
-    //update prog bar text
+    let timeLeft = progBar.max - time;
     timeLeftTxt.textContent = timeLeft + " min left";
 }
 
